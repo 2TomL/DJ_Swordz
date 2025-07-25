@@ -112,6 +112,8 @@
     height: 220px;
   }
   .about-text {
+    text-align: center;
+    align-items: center;
     padding-left: 0;
     font-size: 0.98rem;
   }
@@ -133,7 +135,7 @@
   .about-text {
     text-align: center;
     align-items: center;
-    padding-left: 0;
+    padding-left: 20px;
   }
   .about-text h2 {
     font-size: 1.2rem;
