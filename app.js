@@ -406,3 +406,15 @@ window.onload = function() {
     }
   });
 };
+
+// Zet automatisch de titel onder elke video op basis van het iframe title attribuut
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.video-card').forEach(card => {
+    const iframe = card.querySelector('iframe');
+    const title = iframe?.getAttribute('title');
+    const h3 = card.querySelector('.video-info h3');
+    if (title && h3) {
+      h3.textContent = title;
+    }
+  });
+});
