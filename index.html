@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJ Swordz</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mediaqueries.css" />
+</head>
+<body>
+  <nav id="desktop-nav">
+    <div class="logo">
+      <img src="./assets/small-logo.png" alt="DJ Swordz Logo" class="nav-logo" />
+      <div class="music-player">
+        <select id="song-select" aria-label="Kies een nummer">
+          <option value="assets/loop-file-electric-noise-drum-beat-117185.mp3">Scratch Beat 1</option>
+          <option value="assets/hip-hop-drum-loop-main-beat-102-bpm-265600.mp3">Scratch Beat 2</option>
+          <option value="assets/beat-loop-by-marie-louise-janneman-21287.mp3">Scratch Beat 3</option>
+        </select>
+        <button id="play-pause-btn">
+          <img id="play-pause-icon" src="assets/enable-sound.png" alt="Play/Pause" />
+        </button>
+        <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1" title="Volume" />
+        <audio id="audio-player" src="assets/loop-file-electric-noise-drum-beat-117185.mp3"></audio>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="#home">Home</a>
+      </li>
+      <li>
+        <a href="#about">About</a>
+      </li>
+      <li>
+        <a href="#videos">Videos</a>
+      </li>
+      <li>
+        <a href="#projects">Projects</a>
+      </li>
+      <li>
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+  <nav id="hamburger-nav">
+    <div class="hamburger-menu">
+      <div class="hamburger-icon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-links-container">
+        <ul class="menu-links">
+          <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#videos" onclick="toggleMenu()">Videos</a></li>
+          <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section id="home">
+    <div class="home-logo-container" id="home-logo">
+      <div id="three-container" alt="3D Model of DJ Swordz"></div>
+    </div>
+    <div class="glitch-text-container">
+      <h1 class="glitch-text" data-text="DJ Swordz">DJ Swordz</h1>
+      <p class="glitch-text" data-text="Your one-stop destination for the latest scratch stuff.">Your one-stop destination for the latest scratch stuff.</p>
+      <svg width="0" height="0">
+        <filter id="glitch-filter">
+          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="r"/>
+          <feOffset in="r" dx="-2" dy="0" result="rShift"/>
+          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="g"/>
+          <feOffset in="g" dx="2" dy="0" result="gShift"/>
+          <feBlend in="rShift" in2="gShift" mode="screen" result="blend"/>
+          <feBlend in="blend" in2="SourceGraphic" mode="normal"/>
+        </filter>
+      </svg>
+    </div>
+  </section>
+  <section id="about">
+    <div class="about-content">
+        <div class="about-image">
+        <div id="about-three-container" alt="3D About Picture"></div>
+      </div>
+      <div class="about-text">
+        <h2>About DJ Swordz</h2>
+        <p>
+          DJ Swordz is a passionate turntablist and beatmaker, always pushing the boundaries of scratch music and live performance.<br>
+          With a unique style and a love for innovation, he brings energy to every stage.<br>
+          <strong>Follow his journey and discover the latest scratch techniques, projects, and music!</strong>
+        </p>
+      </div>
+    </div>
+  </section>
+  <section id="videos">
+    <div class="videos-container">
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/OUGdYWUJikw" title="YouTube video 1" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke wack 1</h3>
+          <p>Scratches that sound the same for hours</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/mAGI4DiEMcE" title="YouTube video 2" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Waah 2</h3>
+          <p>Scratches that create a mesmerizing rhythm of nothing</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/4S9QXa_1amc" title="YouTube video 3" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Wack 3</h3>
+          <p>Scratches that blend into a hypnotic soundscape of losers</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/CoNDzXB-_eU?list=RDCoNDzXB-_eU&start_radio=1" title="YouTube video 4" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Waah 4</h3>
+          <p>Scratches that create a chaotic symphony of sound</p>
+        </div>
+      </div>
+    </div>
+    <div class="videos-container">
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/OUGdYWUJikw" title="YouTube video 1" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke wack 1</h3>
+          <p>Scratches that sound the same for hours</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/mAGI4DiEMcE" title="YouTube video 2" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Waah 2</h3>
+          <p>Scratches that create a mesmerizing rhythm of nothing</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/4S9QXa_1amc" title="YouTube video 3" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Wack 3</h3>
+          <p>Scratches that blend into a hypnotic soundscape of losers</p>
+        </div>
+      </div>
+      <div class="video-card">
+        <iframe class="video-thumb" src="https://www.youtube.com/embed/CoNDzXB-_eU?list=RDCoNDzXB-_eU&start_radio=1" title="YouTube video 4" frameborder="0" allowfullscreen></iframe>
+        <div class="video-info">
+          <h3>Wicke Waah 4</h3>
+          <p>Scratches that create a chaotic symphony of sound</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="projects">
+    <div class="projects-container">
+      <div class="project-card">
+        <a href="https://beatsurfing.com/" target="_blank" rel="noopener">
+          <div class="project-thumb">
+            <img src="assets/project1.jpg" alt="Beatsurfing project" class="project1-img" />
+          </div>
+          <div class="project-info">
+            <h3>Beatsurfing</h3>
+            <p>Innovative music app for creating beats and live performance.<br>View the project &rarr;</p>
+          </div>
+        </a>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <h3>Project Title 2</h3>
+          <p>Short description of the project.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <h3>Project Title 3</h3>
+          <p>Short description of the project.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="contact">
+    <div class="contact-content">
+      <h2>Contact</h2>
+      <div class="contact-icons">
+        <a href="https://instagram.com/djswordz" target="_blank" rel="noopener noreferrer" title="Instagram DJ Swordz">
+          <img src="assets/instagram.png" alt="Instagram" />
+        </a>
+        <a href="https://facebook.com/djswordz" target="_blank" rel="noopener noreferrer" title="Facebook DJ Swordz">
+          <img src="assets/facebook.png" alt="Facebook" />
+        </a>
+        <a href="mailto:info@djswordz.com" title="E-mail">
+          <img src="assets/email.png" alt="E-mail" />
+        </a>
+      </div>
+      <p class="contact-note">Feel free to send a message for bookings, collaborations, or questions!</p>
+      <p class="contact-note">This site was made by my best awesome buddy Tom Lamers 2025</p>
+    </div>
+  <canvas id="mouse-effect"></canvas>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

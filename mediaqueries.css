@@ -1,0 +1,17 @@
+@media (max-width: 900px) {
+  #desktop-nav {
+    display: none !important;
+  }
+  #hamburger-nav {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 901px) {
+  #desktop-nav {
+    display: flex !important;
+  }
+  #hamburger-nav {
+    display: none !important;
+  }
+}
