@@ -114,7 +114,7 @@
   .about-text {
     text-align: center;
     align-items: center;
-    padding-left: 0;
+    padding-left: 30px;
     font-size: 0.98rem;
   }
 }
