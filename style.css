@@ -1,14 +1,13 @@
-/* --- Mouse Effect Canvas --- */
+/* --- Mouse Effect Canvas Styling --- */
 #mouse-effect {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
-  z-index: 100;
+  z-index: 1000;
   display: block;
-  background: transparent;
 }
 
 /* --- Zorg dat secties niet achter de navbar zitten en altijd minstens schermhoogte --- */
