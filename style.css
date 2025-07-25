@@ -1,3 +1,15 @@
+/* --- Mouse Effect Canvas --- */
+#mouse-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+  z-index: 100;
+  display: block;
+  background: transparent;
+}
 
 /* --- Zorg dat secties niet achter de navbar zitten en altijd minstens schermhoogte --- */
 #home, #about, #videos, #projects, #contact {
