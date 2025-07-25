@@ -29,7 +29,7 @@
 #home, #about, #videos, #projects, #contact {
   scroll-margin-top: 100px;
 }
-/* --- ABOUT SECTION --- */
+
 /* --- ABOUT SECTION --- */
 #about {
   position: relative;
@@ -624,7 +624,7 @@ a:hover {
   margin-left: 10px;
   margin-right: 1.5rem;
 }
-/* Verberg het logo in de hamburger navbar als het per ongeluk zichtbaar is */
+
 #hamburger-nav .logo {
   display: none !important;
 }
