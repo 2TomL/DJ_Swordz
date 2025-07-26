@@ -339,6 +339,13 @@ footer#contact {
   border-radius: 0;
   max-height: 140px;
 }
+.project2-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
 .project-info {
   padding: 1rem 1.2rem 1.2rem 1.2rem;
   width: 100%;
