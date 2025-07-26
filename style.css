@@ -75,8 +75,8 @@
   justify-content: center;
 }
 #about-three-container {
-  width: 340px;
-  height: 340px;
+  width: 440px;
+  height: 440px;
   max-width: 100vw;
   max-height: 80vh;
   display: flex;
@@ -86,8 +86,8 @@
 #about-three-container canvas {
   width: 100% !important;
   height: 100% !important;
-  max-width: 340px !important;
-  max-height: 340px !important;
+  max-width: 440px !important;
+  max-height: 440px !important;
   display: block;
   border-radius: 2rem;
   transform: scaleY(-1);
@@ -121,8 +121,9 @@
 
 @media (max-width: 600px) {
   #home, #about, #videos, #projects, #contact {
-    padding-top: 0;
+    padding-top: 70px;
     min-height: unset;
+    scroll-margin-top: 70px;
   }
   #about-three-container {
     width: 140px;
@@ -308,7 +309,7 @@ footer#contact {
 .project-card {
   background: rgba(255,255,255,0.04);
   border-radius: 1.2rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.13), 0 0 8px 1px #ffffff0d, 0 0 8px 2px rgba(255,255,255,0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -318,7 +319,7 @@ footer#contact {
 }
 .project-card:hover {
   transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.16), 0 0 12px 2px #ffffff14, 0 0 12px 4px rgba(255,255,255,0.08);
 }
 .project-thumb {
   width: 100%;
@@ -409,7 +410,7 @@ footer#contact {
 .video-card {
   background: rgba(255,255,255,0.04);
   border-radius: 1.2rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.13), 0 0 8px 1px #ffffff0d, 0 0 8px 2px rgba(255,255,255,0.06);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -419,7 +420,7 @@ footer#contact {
 }
 .video-card:hover {
   transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.16), 0 0 12px 2px #ffffff14, 0 0 12px 4px rgba(255,255,255,0.08);
 }
 .video-thumb {
   width: 100%;
