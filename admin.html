@@ -19,6 +19,7 @@
     <input type="text" id="eventDay" placeholder="day" required>
     <input type="text" id="eventTitle" placeholder="title" required>
     <input type="text" id="eventPlace" placeholder="place" required>
+    <input type="url" id="facebook-input" name="facebook" placeholder="https://facebook.com/events/...">
     <button type="submit">Add Event</button>
   </form>
   <div class="event-list" id="eventList"></div>
@@ -44,7 +45,11 @@
         events.forEach((ev, i) => {
           const div = document.createElement('div');
           div.className = 'event-item';
-          div.innerHTML = `${ev.date} (${ev.day}) - <b>${ev.title}</b> @ ${ev.place} <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>`;
+          let fbHtml = '';
+          if (ev.facebook) {
+            fbHtml = ` <a href='${ev.facebook}' target='_blank' title='Facebook Event'><img src='assets/facebook.png' alt='Facebook Event' style='width:22px;height:22px;vertical-align:middle;margin-left:6px;'/></a>`;
+          }
+          div.innerHTML = `${ev.date} (${ev.day}) - <b>${ev.title}</b> @ ${ev.place}${fbHtml} <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>`;
           list.appendChild(div);
         });
       } catch (err) {
@@ -62,10 +67,11 @@
         const day = eventDay.value;
         const title = eventTitle.value;
         const place = eventPlace.value;
+        const facebook = document.getElementById('facebook-input').value.trim();
         const res = await fetch('events.json?' + Date.now());
         if (!res.ok) throw new Error('events.json niet gevonden');
         const events = await res.json();
-        events.push({ date, day, title, place });
+        events.push({ date, day, title, place, facebook });
         await saveEvents(events);
         loadEvents();
         this.reset();

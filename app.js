@@ -405,4 +405,50 @@ window.onload = function() {
       }
     }
   });
-}  
+}
+
+// Timeline rendering for upcoming events
+function renderTimeline() {
+  fetch('events.json')
+    .then(res => res.json())
+    .then(events => {
+      const timeline = document.getElementById('timeline-container');
+      if (!timeline) return;
+      timeline.innerHTML = '';
+      events.forEach((ev, i) => {
+        timeline.innerHTML += `
+          <svg class="timeline-line" height="5" width="80">
+            <line x1="0" y1="2" x2="80" y2="2" />
+          </svg>
+          <div class="timeline-event">
+            <div class="eventBubble" style="position:relative;">
+              <div class="eventTime">
+                <div class="DayDigit">${ev.date.split('-')[2]}</div>
+                <div class="Day">${ev.day}<div class="MonthYear">${ev.date.split('-')[1]}/${ev.date.split('-')[0]}</div></div>
+              </div>
+              <div class="eventTitle">${ev.title}</div>
+              <div class="eventPlace">${ev.place}</div>
+              ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button>` : ''}
+            </div>
+            <svg class="timeline-dot-svg" height="20" width="20">
+              <circle cx="10" cy="10" r="5" />
+            </svg>
+          </div>
+        `;
+      });
+      // Add hover logic for eventBubble to show/hide fb-event-btn
+      setTimeout(() => {
+        document.querySelectorAll('.eventBubble').forEach(bubble => {
+          bubble.addEventListener('mouseenter', function() {
+            const btn = bubble.querySelector('.fb-event-btn');
+            if (btn) btn.style.display = 'block';
+          });
+          bubble.addEventListener('mouseleave', function() {
+            const btn = bubble.querySelector('.fb-event-btn');
+            if (btn) btn.style.display = 'none';
+          });
+        });
+      }, 0);
+    });
+}
+window.addEventListener('DOMContentLoaded', renderTimeline);

@@ -46,10 +46,10 @@
         <a class="glitch-text" href="#about">About</a>
       </li>
       <li>
-        <a class="glitch-text" href="#videos">Videos</a>
+        <a class="glitch-text" href="#projects">Projects/Shows</a>
       </li>
       <li>
-        <a class="glitch-text" href="#projects">Projects/Shows</a>
+        <a class="glitch-text" href="#videos">Videos</a>
       </li>
       <li>
         <a class="glitch-text" href="#contact">Contact</a>
@@ -67,8 +67,8 @@
         <ul class="menu-links">
           <li><a href="#home" onclick="toggleMenu()">Home</a></li>
           <li><a href="#about" onclick="toggleMenu()">About</a></li>
-          <li><a href="#videos" onclick="toggleMenu()">Videos</a></li>
           <li><a href="#projects" onclick="toggleMenu()">Projects/Shows</a></li>
+          <li><a href="#videos" onclick="toggleMenu()">Videos</a></li>
           <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
         </ul>
       </div>
@@ -106,6 +106,38 @@
         <p class="about-links-text">Check out my <a href="#projects">Projects</a> and <a href="#projects">Upcoming Shows</a>!</p>
       </div>
     </div>
+  </section>
+  <section id="projects">
+    <div class="projects-container">
+      <div class="project-card">
+        <a href="https://beatsurfing.com/" target="_blank" rel="noopener">
+          <div class="project-thumb">
+            <img src="assets/project1.jpg" alt="Beatsurfing project" class="project1-img" />
+          </div>
+          <div class="project-info">
+            <h3>Beatsurfing</h3>
+            <p>Innovative music app for creating beats and live performance.<br>View the project &rarr;</p>
+          </div>
+        </a>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <h3>Project Title 2</h3>
+          <p>Short description of the project.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb"></div>
+        <div class="project-info">
+          <h3>Project Title 3</h3>
+          <p>Short description of the project.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Timeline for upcoming events -->
+    <h2 class="glitch-text timeline-title">UPCOMING SHOWS</h2>
+    <div class="Timeline" id="timeline-container"></div>
   </section>
   <section id="videos">
     <div class="videos-container">
@@ -168,66 +200,6 @@
         </div>
       </div>
     </div>
-  </section>
-  <section id="projects">
-    <div class="projects-container">
-      <div class="project-card">
-        <a href="https://beatsurfing.com/" target="_blank" rel="noopener">
-          <div class="project-thumb">
-            <img src="assets/project1.jpg" alt="Beatsurfing project" class="project1-img" />
-          </div>
-          <div class="project-info">
-            <h3>Beatsurfing</h3>
-            <p>Innovative music app for creating beats and live performance.<br>View the project &rarr;</p>
-          </div>
-        </a>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb"></div>
-        <div class="project-info">
-          <h3>Project Title 2</h3>
-          <p>Short description of the project.</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-thumb"></div>
-        <div class="project-info">
-          <h3>Project Title 3</h3>
-          <p>Short description of the project.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Timeline for upcoming events -->
-    <h2 class="glitch-text timeline-title">UPCOMING SHOWS</h2>
-    <div class="Timeline" id="timeline-container"></div>
-    <script>
-    fetch('events.json')
-      .then(res => res.json())
-      .then(events => {
-        const timeline = document.getElementById('timeline-container');
-        timeline.innerHTML = '';
-        events.forEach((ev, i) => {
-          timeline.innerHTML += `
-            <svg class="timeline-line" height="5" width="80">
-              <line x1="0" y1="2" x2="80" y2="2" />
-            </svg>
-            <div class="timeline-event">
-              <div class="eventBubble">
-                <div class="eventTime">
-                  <div class="DayDigit">${ev.date.split('-')[2]}</div>
-                  <div class="Day">${ev.day}<div class="MonthYear">${ev.date.split('-')[1]}/${ev.date.split('-')[0]}</div></div>
-                </div>
-                <div class="eventTitle">${ev.title}</div>
-                <div class="eventPlace">${ev.place}</div>
-              </div>
-              <svg class="timeline-dot-svg" height="20" width="20">
-                <circle cx="10" cy="10" r="5" />
-              </svg>
-            </div>
-          `;
-        });
-      });
-    </script>
   </section>
   <footer id="contact">
     <div class="contact-content">
