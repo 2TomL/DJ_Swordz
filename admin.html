@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Event Admin</title>
+  <style>
+    body { background: #111; color: #fff; font-family: sans-serif; padding: 2rem; }
+    input, button { margin: 0.2rem; }
+    .event-list { margin-top: 2rem; }
+    .event-item { margin-bottom: 0.5rem; }
+    .delete-btn { margin-left: 1rem; color: #fff; background: #800020; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h2>Event Admin</h2>
+  <form id="addEventForm">
+    <input type="date" id="eventDate" required>
+    <input type="text" id="eventDay" placeholder="Day" required>
+    <input type="text" id="eventTitle" placeholder="Title" required>
+    <input type="text" id="eventPlace" placeholder="Place" required>
+    <button type="submit">Add Event</button>
+  </form>
+  <div class="event-list" id="eventList"></div>
+  <script>
+    // Simpele wachtwoordbeveiliging
+    if (prompt("Admin password:") !== "DJ SWORDZ") location.href = "/";
+    // Events ophalen en tonen
+    async function loadEvents() {
+      const res = await fetch('events.json');
+      const events = await res.json();
+      const list = document.getElementById('eventList');
+      list.innerHTML = '';
+      events.forEach((ev, i) => {
+        const div = document.createElement('div');
+        div.className = 'event-item';
+        div.innerHTML = `${ev.date} (${ev.day}) - <b>${ev.title}</b> @ ${ev.place} <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>`;
+        list.appendChild(div);
+      });
+    }
+    loadEvents();
+
+    // Event toevoegen
+    document.getElementById('addEventForm').onsubmit = async function(e) {
+      e.preventDefault();
+      const date = eventDate.value;
+      const day = eventDay.value;
+      const title = eventTitle.value;
+      const place = eventPlace.value;
+      const res = await fetch('events.json');
+      const events = await res.json();
+      events.push({ date, day, title, place });
+      await saveEvents(events);
+      loadEvents();
+      this.reset();
+    };
+
+    // Event verwijderen
+    window.deleteEvent = async function(idx) {
+      const res = await fetch('events.json');
+      const events = await res.json();
+      events.splice(idx, 1);
+      await saveEvents(events);
+      loadEvents();
+    };
+
+    // Opslaan (werkt alleen met backend, niet direct op file)
+    async function saveEvents(events) {
+      await fetch('save-events.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(events)
+      });
+    }
+  </script>
+</body>
+</html>
