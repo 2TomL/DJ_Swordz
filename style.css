@@ -421,7 +421,7 @@ footer#contact {
 .video-thumb {
   width: 100%;
   aspect-ratio: 16/9;
-  background: #222 url('https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg') center/cover no-repeat;
+  background: #222 center/cover no-repeat;
   min-height: 120px;
 }
 .video-info {
