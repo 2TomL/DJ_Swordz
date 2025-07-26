@@ -25,52 +25,78 @@
   <script>
     // Simpele wachtwoordbeveiliging
     if (prompt("Admin password:") !== "DJSWORDZ") location.href = "/";
+
+    // Feedback element
+    const feedback = document.createElement('div');
+    feedback.style.color = '#ff5050';
+    feedback.style.marginTop = '1rem';
+    document.body.appendChild(feedback);
+
     // Events ophalen en tonen
     async function loadEvents() {
-      const res = await fetch('events.json');
-      const events = await res.json();
-      const list = document.getElementById('eventList');
-      list.innerHTML = '';
-      events.forEach((ev, i) => {
-        const div = document.createElement('div');
-        div.className = 'event-item';
-        div.innerHTML = `${ev.date} (${ev.day}) - <b>${ev.title}</b> @ ${ev.place} <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>`;
-        list.appendChild(div);
-      });
+      feedback.textContent = '';
+      try {
+        const res = await fetch('events.json?' + Date.now());
+        if (!res.ok) throw new Error('events.json niet gevonden');
+        const events = await res.json();
+        const list = document.getElementById('eventList');
+        list.innerHTML = '';
+        events.forEach((ev, i) => {
+          const div = document.createElement('div');
+          div.className = 'event-item';
+          div.innerHTML = `${ev.date} (${ev.day}) - <b>${ev.title}</b> @ ${ev.place} <button class="delete-btn" onclick="deleteEvent(${i})">Delete</button>`;
+          list.appendChild(div);
+        });
+      } catch (err) {
+        feedback.textContent = 'Fout bij laden events: ' + err.message;
+      }
     }
     loadEvents();
 
     // Event toevoegen
     document.getElementById('addEventForm').onsubmit = async function(e) {
       e.preventDefault();
-      const date = eventDate.value;
-      const day = eventDay.value;
-      const title = eventTitle.value;
-      const place = eventPlace.value;
-      const res = await fetch('events.json');
-      const events = await res.json();
-      events.push({ date, day, title, place });
-      await saveEvents(events);
-      loadEvents();
-      this.reset();
+      feedback.textContent = '';
+      try {
+        const date = eventDate.value;
+        const day = eventDay.value;
+        const title = eventTitle.value;
+        const place = eventPlace.value;
+        const res = await fetch('events.json?' + Date.now());
+        if (!res.ok) throw new Error('events.json niet gevonden');
+        const events = await res.json();
+        events.push({ date, day, title, place });
+        await saveEvents(events);
+        loadEvents();
+        this.reset();
+      } catch (err) {
+        feedback.textContent = 'Fout bij toevoegen: ' + err.message;
+      }
     };
 
     // Event verwijderen
     window.deleteEvent = async function(idx) {
-      const res = await fetch('events.json');
-      const events = await res.json();
-      events.splice(idx, 1);
-      await saveEvents(events);
-      loadEvents();
+      feedback.textContent = '';
+      try {
+        const res = await fetch('events.json?' + Date.now());
+        if (!res.ok) throw new Error('events.json niet gevonden');
+        const events = await res.json();
+        events.splice(idx, 1);
+        await saveEvents(events);
+        loadEvents();
+      } catch (err) {
+        feedback.textContent = 'Fout bij verwijderen: ' + err.message;
+      }
     };
 
     // Opslaan (werkt alleen met backend, niet direct op file)
     async function saveEvents(events) {
-      await fetch('save-events.php', {
+      const res = await fetch('save-events.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(events)
       });
+      if (!res.ok) throw new Error('Kan events niet opslaan');
     }
   </script>
 </body>
