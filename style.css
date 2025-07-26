@@ -224,6 +224,8 @@ footer#contact {
   letter-spacing: 0.5px;
   margin-right: 8px;
   text-shadow: 0 1px 8px #23263a;
+  white-space: nowrap;
+  width: auto;
 }
 .sponsor-logos {
   display: flex;
@@ -253,6 +255,11 @@ footer#contact {
   .sponsor-label {
     font-size: 0.92rem;
     margin-right: 4px;
+    white-space: normal;
+    width: 100px;
+    line-height: 1;
+    text-align: center;
+    display: inline-block;
   }
   .sponsor-logos {
     gap: 10px;
