@@ -379,53 +379,46 @@ footer#contact {
 @media (max-width: 900px) {
   .projects-container {
     grid-template-columns: repeat(2, 1fr);
-    padding-top: 4.5rem;
+    padding-top: 2rem;
   }
 }
 @media (max-width: 600px) {
   .projects-container {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem 0;
+    gap: 1.3rem;
+    padding: 1.3rem 0;
     max-width: 98vw;
     justify-items: center;
   }
   .project-card {
     border-radius: 0.5rem;
     box-shadow: 0 1px 6px rgba(0,0,0,0.13);
-    margin: 0.5rem auto;
-    max-width: 200px;
+    margin: 0.7rem auto;
+    max-width: 240px;      /* was 200px */
     min-width: 0;
-    width: 96vw;
+    width: 98vw;           /* was 96vw */
   }
   .project-thumb {
-    min-height: 56px;
-    max-height: 90px;
+    min-height: 76px;      /* was 56px */
+    max-height: 130px;     /* was 90px */
     border-radius: 0.5rem 0.5rem 0 0;
   }
-  .project1-img {
-    height: 100%;
-    width: 200px;
-    max-height: 90px;
-  }
-  .project2-img {
-    height: 100%;
-    width: 200px;
-    max-height: 90px;
-  }
+  .project1-img,
+  .project2-img,
   .project3-img {
     height: 100%;
-    width: 200px;
-    max-height: 90px;
+    width: 240px;          /* was 200px */
+    max-height: 130px;     /* was 90px */
+    object-fit: cover;
   }
   .project-info {
-    padding: 0.35rem 0.5rem 0.5rem 0.5rem;
+    padding: 0.45rem 0.7rem 0.7rem 0.7rem; /* iets ruimer */
   }
   .project-info h3 {
-    font-size: 0.85rem;
+    font-size: 0.8rem;       /* was 0.85rem */
   }
   .project-info p {
-    font-size: 0.72rem;
+    font-size: 0.7rem;    /* was 0.72rem */
   }
 }
 /* --- VIDEO SECTION --- */
