@@ -15,6 +15,7 @@
   padding-top: 95px;
   min-height: 100vh;
   box-sizing: border-box;
+  scroll-margin-top: 100px;
 }
 
 
@@ -23,11 +24,6 @@
     padding-top: 75px;
     min-height: 100vh;
   }
-}
-
-/* Prevent content from hiding behind navbar when navigated via anchor */
-#home, #about, #videos, #projects, #contact {
-  scroll-margin-top: 100px;
 }
 
 /* --- ABOUT SECTION --- */
@@ -969,6 +965,12 @@ a:hover {
     text-align: center;
     margin: 1.2rem 0 0.5rem 0;
   }
+}
+
+/* Specifiek voor de PROJECTS titel boven de project cards */
+#projects > .glitch-text.timeline-title {
+  margin-bottom: 0.2rem;
+  margin-top: 1.2rem;
 }
 
 @media (min-width: 701px) {
