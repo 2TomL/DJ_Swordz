@@ -428,7 +428,7 @@ function renderTimeline() {
               </div>
               <div class="eventTitle">${ev.title}</div>
               <div class="eventPlace">${ev.place}</div>
-              ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button>` : ''}
+              ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;' onmouseenter='showFbInfo(this)' onmouseleave='hideFbInfo(this)'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button><div class='fb-info-balloon' style='display:none;position:absolute;right:40px;bottom:8px;background:#222;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;box-shadow:0 2px 8px #000;'>Event info</div>` : ''}
             </div>
             <svg class="timeline-dot-svg" height="20" width="20">
               <circle cx="10" cy="10" r="5" />
@@ -446,9 +446,19 @@ function renderTimeline() {
           bubble.addEventListener('mouseleave', function() {
             const btn = bubble.querySelector('.fb-event-btn');
             if (btn) btn.style.display = 'none';
+            const info = bubble.querySelector('.fb-info-balloon');
+            if (info) info.style.display = 'none';
           });
         });
       }, 0);
     });
 }
+window.showFbInfo = function(btn) {
+  const info = btn.parentElement.querySelector('.fb-info-balloon');
+  if (info) info.style.display = 'block';
+};
+window.hideFbInfo = function(btn) {
+  const info = btn.parentElement.querySelector('.fb-info-balloon');
+  if (info) info.style.display = 'none';
+};
 window.addEventListener('DOMContentLoaded', renderTimeline);
