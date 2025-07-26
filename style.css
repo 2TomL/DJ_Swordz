@@ -882,6 +882,7 @@ a:hover {
   box-shadow: inset 0 0 5px rgba(158,158,158,0.18);
   padding: 6px 8px 4px 8px;
   margin-bottom: 2px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -981,6 +982,15 @@ a:hover {
     text-align: center;
     margin: 1.2rem 0 0.5rem 0;
   }
+  .eventBubble {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .timeline-line {
+    display: none;
+  }
 }
 
 /* Specifiek voor de PROJECTS titel boven de project cards */
@@ -1003,4 +1013,18 @@ a:hover {
 }
 .timeline-event .eventBubble {
   transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+.more-videos-link {
+  text-align: center;
+  margin: 1.5rem 0 0 0;
+}
+.more-videos-link a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+@media (max-width: 700px) {
+  .more-videos-link {
+    display: none;
+  }
 }
