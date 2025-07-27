@@ -30,6 +30,7 @@
           <option value="assets/loop-file-electric-noise-drum-beat-117185.mp3">Scratch Beat 1</option>
           <option value="assets/hip-hop-drum-loop-main-beat-102-bpm-265600.mp3">Scratch Beat 2</option>
           <option value="assets/beat-loop-by-marie-louise-janneman-21287.mp3">Scratch Beat 3</option>
+          <option value="assets/typical-trap-loop-2b-130751.mp3">Scratch Beat 4</option>
         </select>
         <button id="play-pause-btn">
           <img id="play-pause-icon" src="assets/enable-sound.png" alt="Play/Pause" />
@@ -95,15 +96,20 @@
   </section>
   <section id="about">
     <div class="about-content">
-        <div class="about-image">
+      <div class="about-image">
         <div id="about-three-container" alt="3D About Picture"></div>
       </div>
       <div class="about-text">
         <h2 class="glitch-text" data-text="About me">About me</h2>
         <p>
-          DJ Swordz is a Belgian DJ and turntablist with Filipino roots, known for his exceptional scratching skills. In 2021, he became the World Champion in the DMC World DJ Championships in the portablist category. This event, held online due to the pandemic, was streamed live on YouTube. DJ Swordz was inspired to start DJing after watching DJ Craze win the DMC 98 US Finals and listening to DJ Shadow and DJ QBert’s mix, The Camel Bobsled Race. He quickly advanced with his Technics DMC mixer and was part of the IFC Crew, which hosted parties in Diest, Belgium. In 2008, he performed at the Hip Hop Kemp festival in Prague. After a break, he resumed his DJing career around 2013 and has since been actively competing and performing.<br>
+          DJ Swordz is a Belgian DJ and turntablist with Filipino roots, known for his exceptional scratching skills. In 2021, he became the World Champion in the DMC World DJ Championships in the portablist category. DJ Swordz was inspired to start DJing after watching DJ Craze win the DMC 98 US Finals and listening to DJ Shadow and DJ QBert’s mix, The Camel Bobsled Race. He quickly advanced with his Technics DMC mixer and was part of the IFC Crew, which hosted parties in Diest, Belgium. In 2008, he performed at the Hip Hop Kemp festival in Prague. After a break, he resumed his DJing career around 2013 and has since been actively competing and performing.<br>
         </p>
-        <p class="about-links-text">Check out my <a href="#projects" class="glitch-text">Projects</a> and <a href="#projects" class="glitch-text">Upcoming Shows</a>!</p>
+        <p class="about-links-text">Check my <a href="#projects" class="glitch-text">Projects</a> and <a href="#projects" class="glitch-text">Upcoming Shows</a>!</p>
+      </div>
+      <button id="show-scratchpad-btn" class="show-scratchpad-btn glitch-text" data-text="Making you itch?">Making you itch?</button>
+      <div class="scratch-pad-container" id="scratch-pad-container">
+        <canvas id="scratch-pad" width="220" height="220"></canvas>
+        <audio id="scratch-audio" src="assets/080232_scratch-sample-90085.mp3"></audio>
       </div>
     </div>
   </section>
@@ -112,7 +118,7 @@
       <div class="project-card">
         <a href="https://beatsurfing.com/" target="_blank" rel="noopener">
           <div class="project-thumb">
-            <img src="assets/project1.jpg" alt="Beatsurfing project" class="project1-img" />
+            <img src="assets/project1.jpg" alt="Beatsurfing project" class="project1-img"/>
           </div>
           <div class="project-info">
             <h3>Beatsurfing</h3>

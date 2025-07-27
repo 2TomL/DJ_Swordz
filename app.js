@@ -462,3 +462,93 @@ window.hideFbInfo = function(btn) {
   if (info) info.style.display = 'none';
 };
 window.addEventListener('DOMContentLoaded', renderTimeline);
+
+// --- SCRATCH PAD FOR VINYL EFFECT ---
+const scratchPad = document.getElementById('scratch-pad');
+const scratchAudio = document.getElementById('scratch-audio');
+if (scratchPad && scratchAudio) {
+  const ctx = scratchPad.getContext('2d');
+  let dragging = false, lastAngle = null;
+
+  function drawVinyl(angle = 0) {
+    ctx.clearRect(0, 0, scratchPad.width, scratchPad.height);
+    const img = new Image();
+    img.src = 'assets/vinyl.png'; // <-- hier zet je jouw vinyl afbeelding
+    img.onload = function() {
+      ctx.save();
+      ctx.translate(110, 110);
+      ctx.rotate(angle);
+      ctx.drawImage(img, -110, -110, 220, 220); // past de afbeelding in het canvas
+      ctx.restore();
+    };
+  }
+  drawVinyl();
+
+  function getAngle(x, y) {
+    const rect = scratchPad.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    return Math.atan2(y - cy, x - cx);
+  }
+
+  function playScratch() {
+    scratchAudio.currentTime = 0;
+    scratchAudio.play();
+  }
+
+  function stopScratch() {
+    scratchAudio.pause();
+    scratchAudio.currentTime = 0;
+  }
+
+  function start(e) {
+    dragging = true;
+    lastAngle = getAngle(
+      e.touches ? e.touches[0].clientX : e.clientX,
+      e.touches ? e.touches[0].clientY : e.clientY
+    );
+    scratchPad.style.cursor = "grabbing";
+  }
+  function move(e) {
+    if (!dragging) return;
+    const angle = getAngle(
+      e.touches ? e.touches[0].clientX : e.clientX,
+      e.touches ? e.touches[0].clientY : e.clientY
+    );
+    drawVinyl(angle);
+    if (lastAngle !== null && Math.abs(angle - lastAngle) > 0.1) {
+      playScratch();
+    }
+    lastAngle = angle;
+  }
+  function end() {
+    dragging = false;
+    lastAngle = null;
+    drawVinyl();
+    scratchPad.style.cursor = "grab";
+    stopScratch(); // Stop het geluid direct bij loslaten
+  }
+
+  scratchPad.addEventListener('mousedown', start);
+  scratchPad.addEventListener('touchstart', start, {passive: false});
+  window.addEventListener('mousemove', move);
+  window.addEventListener('touchmove', move, {passive: false});
+  window.addEventListener('mouseup', end);
+  window.addEventListener('touchend', end);
+}
+// --- Scratchpad toggle button ---
+    document.getElementById('show-scratchpad-btn').onclick = function() {
+      var pad = document.getElementById('scratch-pad-container');
+      pad.style.display = pad.style.display === 'none' ? 'flex' : 'none';
+      this.textContent = pad.style.display === 'none' ? 'Show Scratchpad' : 'Hide Scratchpad';
+    };
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('show-scratchpad-btn');
+  var pad = document.getElementById('scratch-pad-container');
+  if (btn && pad) {
+    btn.onclick = function() {
+      pad.style.display = 'flex';
+      btn.style.display = 'none';
+    };
+  }
+});
