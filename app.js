@@ -191,7 +191,7 @@ window.onload = function() {
     let blockH = logicalHeight / rows;
     const blocks = [];
     const loader = new THREE.TextureLoader();
-    loader.load('./assets/about-pic2.jpg', function(texture) {
+    loader.load('assets/about-pic2bis3.jpg', function(texture) {
       texture.wrapS = THREE.ClampToEdgeWrapping;
       texture.wrapT = THREE.ClampToEdgeWrapping;
       for (let y = 0; y < rows; y++) {
