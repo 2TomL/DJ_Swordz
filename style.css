@@ -106,10 +106,6 @@
   .about-image {
     margin-bottom: 1rem;
   }
-  #about-three-container {
-    width: 220px;
-    height: 220px;
-  }
   .about-text {
     text-align: center;
     align-items: center;
@@ -125,8 +121,8 @@
     scroll-margin-top: 70px;
   }
   #about-three-container {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
     min-width: 0;
     min-height: 0;
     max-width: 90vw;
