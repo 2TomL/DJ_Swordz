@@ -742,6 +742,7 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 1.5rem;
 }
 .home-logo-container {
   display: flex;
@@ -1045,5 +1046,11 @@ a:hover {
 @media (max-width: 700px) {
   .more-videos-link {
     display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  #home {
+    font-size: 1.08rem;
   }
 }
