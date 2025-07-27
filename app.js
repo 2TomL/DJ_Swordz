@@ -476,9 +476,9 @@ if (scratchPad && scratchAudio) {
     img.src = 'assets/vinyl.png'; // <-- hier zet je jouw vinyl afbeelding
     img.onload = function() {
       ctx.save();
-      ctx.translate(110, 110);
+      ctx.translate(130, 130);
       ctx.rotate(angle);
-      ctx.drawImage(img, -110, -110, 220, 220); // past de afbeelding in het canvas
+      ctx.drawImage(img, -130, -130, 260, 260); // past de afbeelding in het canvas
       ctx.restore();
     };
   }
