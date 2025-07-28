@@ -292,44 +292,78 @@ function renderTimeline() {
     .then(res => res.json())
     .then(events => {
       const timeline = document.getElementById('timeline-container');
+      const pagination = document.getElementById('timeline-pagination');
       if (!timeline) return;
-      timeline.innerHTML = '';
-      events.forEach((ev, i) => {
-        timeline.innerHTML += `
-          <svg class="timeline-line" height="5" width="80">
-            <line x1="0" y1="2" x2="80" y2="2" />
-          </svg>
-          <div class="timeline-event">
-            <div class="eventBubble" style="position:relative;">
-              <div class="eventTime">
-                <div class="DayDigit">${ev.date.split('-')[2]}</div>
-                <div class="Day">${ev.day}<div class="MonthYear">${ev.date.split('-')[1]}/${ev.date.split('-')[0]}</div></div>
+      let page = 0;
+      const perPage = 4;
+      function renderPage() {
+        timeline.innerHTML = '';
+        const start = page * perPage;
+        const end = start + perPage;
+        events.slice(start, end).forEach((ev, i) => {
+          timeline.innerHTML += `
+            <div class="timeline-event">
+              <div class="eventBubble" style="position:relative;">
+                <div class="eventTime">
+                  <div class="DayDigit">${ev.date.split('-')[2]}</div>
+                  <div class="Day">${ev.day}<div class="MonthYear">${ev.date.split('-')[1]}/${ev.date.split('-')[0]}</div></div>
+                </div>
+                <div class="eventTitle">${ev.title}</div>
+                <div class="eventPlace">${ev.place}</div>
+                ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;' onmouseenter='showFbInfo(this)' onmouseleave='hideFbInfo(this)'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button><div class='fb-info-balloon' style='display:none;position:absolute;right:40px;bottom:8px;background:#222;color:#fff;padding:6px 12px;border-radius:8px;font-size:10px;box-shadow:0 2px 8px #000;'>Event info</div>` : ''}
               </div>
-              <div class="eventTitle">${ev.title}</div>
-              <div class="eventPlace">${ev.place}</div>
-              ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;' onmouseenter='showFbInfo(this)' onmouseleave='hideFbInfo(this)'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button><div class='fb-info-balloon' style='display:none;position:absolute;right:40px;bottom:8px;background:#222;color:#fff;padding:6px 12px;border-radius:8px;font-size:13px;box-shadow:0 2px 8px #000;'>Event info</div>` : ''}
+              <svg class="timeline-dot-svg" height="20" width="20">
+                <circle cx="10" cy="10" r="5" />
+              </svg>
             </div>
-            <svg class="timeline-dot-svg" height="20" width="20">
-              <circle cx="10" cy="10" r="5" />
-            </svg>
-          </div>
-        `;
-      });
-      // Add hover logic for eventBubble to show/hide fb-event-btn
-      setTimeout(() => {
-        document.querySelectorAll('.eventBubble').forEach(bubble => {
-          bubble.addEventListener('mouseenter', function() {
-            const btn = bubble.querySelector('.fb-event-btn');
-            if (btn) btn.style.display = 'block';
-          });
-          bubble.addEventListener('mouseleave', function() {
-            const btn = bubble.querySelector('.fb-event-btn');
-            if (btn) btn.style.display = 'none';
-            const info = bubble.querySelector('.fb-info-balloon');
-            if (info) info.style.display = 'none';
-          });
+          `;
         });
-      }, 0);
+        // Add hover logic for eventBubble to show/hide fb-event-btn
+        setTimeout(() => {
+          document.querySelectorAll('.eventBubble').forEach(bubble => {
+            bubble.addEventListener('mouseenter', function() {
+              const btn = bubble.querySelector('.fb-event-btn');
+              if (btn) btn.style.display = 'block';
+            });
+            bubble.addEventListener('mouseleave', function() {
+              const btn = bubble.querySelector('.fb-event-btn');
+              if (btn) btn.style.display = 'none';
+              const info = bubble.querySelector('.fb-info-balloon');
+              if (info) info.style.display = 'none';
+            });
+          });
+        }, 0);
+        // Pagination controls
+        if (pagination) {
+          pagination.innerHTML = '';
+          const prev = document.createElement('button');
+          prev.textContent = '←';
+          prev.style.fontSize = '2rem';
+          prev.style.background = 'none';
+          prev.style.border = 'none';
+          prev.style.color = '#fff';
+          prev.style.cursor = 'pointer';
+          prev.disabled = page === 0;
+          prev.onclick = () => { page--; renderPage(); };
+          const next = document.createElement('button');
+          next.textContent = '→';
+          next.style.fontSize = '2rem';
+          next.style.background = 'none';
+          next.style.border = 'none';
+          next.style.color = '#fff';
+          next.style.cursor = 'pointer';
+          next.disabled = end >= events.length;
+          next.onclick = () => { page++; renderPage(); };
+          pagination.appendChild(prev);
+          const pageInfo = document.createElement('span');
+          pageInfo.textContent = ` ${page + 1} / ${Math.ceil(events.length / perPage)} `;
+          pageInfo.style.fontSize = '1.2rem';
+          pageInfo.style.color = '#fff';
+          pagination.appendChild(pageInfo);
+          pagination.appendChild(next);
+        }
+      }
+      renderPage();
     });
 }
 window.showFbInfo = function(btn) {
