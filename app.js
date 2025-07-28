@@ -537,18 +537,23 @@ if (scratchPad && scratchAudio) {
   window.addEventListener('touchend', end);
 }
 // --- Scratchpad toggle button ---
-    document.getElementById('show-scratchpad-btn').onclick = function() {
-      var pad = document.getElementById('scratch-pad-container');
-      pad.style.display = pad.style.display === 'none' ? 'flex' : 'none';
-      this.textContent = pad.style.display === 'none' ? 'Show Scratchpad' : 'Hide Scratchpad';
-    };
 document.addEventListener('DOMContentLoaded', function() {
   var btn = document.getElementById('show-scratchpad-btn');
   var pad = document.getElementById('scratch-pad-container');
+  var armContainer = document.getElementById('turntable-arm-container');
+  var armImg = document.getElementById('turntable-arm-img');
   if (btn && pad) {
     btn.onclick = function() {
       pad.style.display = 'flex';
       btn.style.display = 'none';
+      if (armContainer && armImg) {
+        armContainer.style.display = 'block';
+        // Start with arm at -20deg
+        armImg.style.transform = 'rotate(-40deg)';
+        setTimeout(function() {
+          armImg.style.transform = 'rotate(-25deg)';
+        }, 100); // Animate to -5deg after short delay
+      }
     };
   }
 });
