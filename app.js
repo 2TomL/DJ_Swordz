@@ -267,6 +267,15 @@ if (scratchPad && scratchAudio) {
   const ctx = scratchPad.getContext('2d');
   let dragging = false, lastAngle = null;
 
+  // Scratch sample selector
+  const sampleSelect = document.getElementById('scratch-sample-select');
+  if (sampleSelect) {
+    sampleSelect.addEventListener('change', function(e) {
+      scratchAudio.src = e.target.value;
+      scratchAudio.currentTime = 0;
+    });
+  }
+
   function drawVinyl(angle = 0) {
     ctx.clearRect(0, 0, scratchPad.width, scratchPad.height);
     const img = new Image();

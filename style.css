@@ -1,4 +1,19 @@
 /* Timeline pagination controls */
+
+#scratch-sample-select {
+  background: #2222226c;
+  color: #fff;
+  border: 1px solid #888;
+  border-style: inset;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  min-width: 90px;
+  margin-left: 8px;
+  font-size: 1rem;
+}
+#scratch-sample-select:focus {
+  outline: 2px solid #888;
+}
 #timeline-pagination {
   display: flex;
   justify-content: center;
