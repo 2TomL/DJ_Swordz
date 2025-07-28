@@ -445,7 +445,7 @@ footer#contact {
     justify-items: center;
   }
   .project-card {
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     box-shadow: 0 2px 7px rgba(0,0,0,0.13), 0 0 16px 3px #ffffff33;
     margin: 0.7rem auto;
     max-width: 240px;      /* was 200px */
@@ -476,19 +476,21 @@ footer#contact {
   }
 }
 /* --- VIDEO SECTION --- */
+/* Desktop: meer horizontale ruimte tussen video-cards en extra top-padding */
 .videos-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  column-gap: 2.5rem; /* meer horizontale ruimte */
+  row-gap: 0.5rem;      /* verticale ruimte blijft gelijk */
   margin: 0 auto;
   max-width: 1200px;
-  padding: 2.5rem 0 0rem 0;
+  padding: 3rem 0 0rem 0; /* extra top-padding */
   justify-content: center;
 }
 
 .video-card {
   background: rgba(255,255,255,0.04);
-  border-radius: 1.2rem;
+  border-radius: 0.5rem;
   box-shadow: 0 3px 12px rgba(0,0,0,0.13), 0 0 8px 1px #ffffff0d, 0 0 8px 2px rgba(255,255,255,0.06);
   overflow: hidden;
   display: flex;
