@@ -166,124 +166,8 @@ window.addEventListener('mousemove', function(e) {
 
 // --- ABOUT SECTION ANIMATION ---
 window.onload = function() {
-  const aboutContainer = document.getElementById('about-three-container');
-  if (aboutContainer) {
-    function getAboutSize() {
-      const parent = aboutContainer.parentElement;
-      if (parent) {
-        const rect = parent.getBoundingClientRect();
-        return { width: rect.width, height: rect.height };
-      }
-      return { width: 340, height: 340 };
-    }
-    let { width, height } = getAboutSize();
-    const scene = new THREE.Scene();
-    const logicalHeight = 2.5;
-    const logicalWidth = logicalHeight * (width / height);
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = 3;
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
-    renderer.setSize(width, height);
-    aboutContainer.appendChild(renderer.domElement);
-    const rows = 12;
-    const cols = 10;
-    let blockW = logicalWidth / cols;
-    let blockH = logicalHeight / rows;
-    const blocks = [];
-    const loader = new THREE.TextureLoader();
-    loader.load('assets/about-pic2bis2.jpg', function(texture) {
-      texture.wrapS = THREE.ClampToEdgeWrapping;
-      texture.wrapT = THREE.ClampToEdgeWrapping;
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          const yFlipped = rows - 1 - y;
-          const u0 = x / cols;
-          const v0 = 1 - (y + 1) / rows;
-          const u1 = (x + 1) / cols;
-          const v1 = 1 - y / rows;
-          const geometry = new THREE.PlaneGeometry(blockW, blockH, 1, 1);
-          const uvs = geometry.attributes.uv;
-          uvs.setXY(0, u0, v0);
-          uvs.setXY(1, u1, v0);
-          uvs.setXY(2, u0, v1);
-          uvs.setXY(3, u1, v1);
-          uvs.needsUpdate = true;
-          const material = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-          const mesh = new THREE.Mesh(geometry, material);
-          mesh.position.x = -logicalWidth / 2 + blockW / 2 + x * blockW;
-          mesh.position.y = logicalHeight / 2 - blockH / 2 - yFlipped * blockH;
-          mesh.position.z = 0;
-          scene.add(mesh);
-          blocks.push({ mesh, x, y: yFlipped, visible: true, glitchOffset: 0 });
-        }
-      }
-      function updateBlockVisibility() {
-        for (let i = 0; i < blocks.length; i++) {
-          if (Math.random() < 0.10) {
-            blocks[i].visible = false;
-          } else {
-            blocks[i].visible = true;
-          }
-        }
-      }
-      setInterval(updateBlockVisibility, 400);
-      function updateGlitch() {
-        for (let i = 0; i < blocks.length; i++) {
-          if (Math.random() < 0.07) {
-            blocks[i].glitchOffset = (Math.random() - 0.5) * 0.25;
-          } else {
-            blocks[i].glitchOffset = 0;
-          }
-        }
-      }
-      setInterval(updateGlitch, 120);
-      function animateAbout() {
-        requestAnimationFrame(animateAbout);
-        for (let i = 0; i < blocks.length; i++) {
-          const { mesh, x, y, visible, glitchOffset } = blocks[i];
-          mesh.visible = visible;
-          mesh.position.x = -logicalWidth / 2 + blockW / 2 + x * blockW + glitchOffset;
-          mesh.position.y = logicalHeight / 2 - blockH / 2 - y * blockH;
-          mesh.position.z = 0;
-        }
-        renderer.render(scene, camera);
-      }
-      animateAbout();
-    });
-    window.addEventListener('resize', () => {
-      const size = getAboutSize();
-      width = size.width;
-      height = size.height;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-      const newLogicalHeight = 2.5;
-      const newLogicalWidth = newLogicalHeight * (width / height);
-      blockW = newLogicalWidth / cols;
-      blockH = newLogicalHeight / rows;
-      for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-          const i = y * cols + x;
-          const mesh = blocks[i].mesh;
-          mesh.geometry.dispose();
-          const geometry = new THREE.PlaneGeometry(blockW, blockH, 1, 1);
-          const u0 = x / cols;
-          const v0 = 1 - (y + 1) / rows;
-          const u1 = (x + 1) / cols;
-          const v1 = 1 - y / rows;
-          const uvs = geometry.attributes.uv;
-          uvs.setXY(0, u0, v0);
-          uvs.setXY(1, u1, v0);
-          uvs.setXY(2, u0, v1);
-          uvs.setXY(3, u1, v1);
-          uvs.needsUpdate = true;
-          mesh.geometry = geometry;
-          mesh.position.x = -newLogicalWidth / 2 + blockW / 2 + x * blockW;
-          mesh.position.y = newLogicalHeight / 2 - blockH / 2 - (rows - 1 - y) * blockH;
-        }
-      }
-    });
-  }
+  // ABOUT tree gebruikt nu de universele updateBlockVisibility van de home tree
+  // Zie code onderaan voor universele Three.js blok
 }
 
 // Timeline rendering for upcoming events
@@ -472,8 +356,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // --- Adjust renderer pixel ratio ---
-const container = document.getElementById('three-container');
-if (container) {
+function createTree3D(containerId, texturePath) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
   const width = container.offsetWidth;
   const height = container.offsetHeight;
   const scene = new THREE.Scene();
@@ -491,7 +376,7 @@ if (container) {
   const blockH = logicalHeight / rows;
   const blocks = [];
   const loader = new THREE.TextureLoader();
-  loader.load('./assets/profile-pic2.jpg', function(texture) {
+  loader.load(texturePath, function(texture) {
     texture.wrapS = THREE.ClampToEdgeWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
     for (let y = 0; y < rows; y++) {
@@ -595,3 +480,7 @@ if (container) {
     }
   });
 }
+
+// Start 3D tree for both containers
+createTree3D('three-container', './assets/profile-pic2.jpg');
+createTree3D('about-three-container', 'assets/about-pic2bis2.jpg');
