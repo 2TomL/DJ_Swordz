@@ -22,8 +22,17 @@
   gap: 32px;
 }
 @media (max-width: 600px) {
-  #turntable-arm-container {
-    display: none !important;
+  #scratch-pad-container #turntable-arm-container {
+    display: block !important;
+    left: 245px !important;
+    top: -30px;
+    width: 48px;
+    height: 70px;
+  }
+  #turntable-arm-img {
+    width: 66px;
+    height: 96px;
+    transform-origin: 42px 18px;
   }
 }
 /* --- Turntable Arm Animation --- */
@@ -32,13 +41,13 @@
 }
 #turntable-arm-container {
   position: absolute;
-  left: 145px;
+  left: 155px;
   top: -40px;
   width: 80px;
   height: 120px;
   pointer-events: none;
   z-index: 2;
-  display: none;
+  display: block;
 }
 #turntable-arm-img {
   width: 110px;
