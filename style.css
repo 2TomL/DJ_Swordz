@@ -455,10 +455,10 @@ footer#contact {
 .videos-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 1rem;
   margin: 0 auto;
   max-width: 1200px;
-  padding: 5.5rem 0 2rem 0;
+  padding: 2.5rem 0 0rem 0;
   justify-content: center;
 }
 
@@ -472,6 +472,8 @@ footer#contact {
   align-items: center;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .video-card:hover {
   transform: translateY(-8px) scale(1.03);
@@ -484,7 +486,7 @@ footer#contact {
   min-height: 120px;
 }
 .video-info {
-  padding: 1rem 1.2rem 1.2rem 1.2rem;
+  padding: 0.5rem 1.2rem 0.7rem 1.2rem;
   width: 100%;
   text-align: left;
 }
@@ -1104,7 +1106,7 @@ a:hover {
   color: #fff;
   border: 1px solid #444;
   padding: 0.32rem 0.65rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   font-family: inherit;
