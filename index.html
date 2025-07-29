@@ -114,12 +114,13 @@
         </div>
         <canvas id="scratch-pad" width="260" height="260"></canvas>
         <audio id="scratch-audio" src="assets/080232_scratch-sample-90085.mp3"></audio>
-        <div style="width: 260px; margin: 32px auto 0 auto; text-align: center;">
-          <select id="scratch-sample-select">
-            <option value="assets/080232_scratch-sample-90085.mp3">Ahh</option>
-            <option value="assets/scratch03.mp3">Fresh</option>
-            <option value="assets/scratch10.mp3">Ah Yeah</option>
-          </select>
+        <div class="scratch-sample-slider-container">
+          <input type="range" id="scratch-sample-slider" min="0" max="2" step="1" value="0" title="Select scratch sample">
+          <div id="scratch-sample-labels" class="glitch-text">
+            <span>AHhh</span>
+            <span>Fresh</span>
+            <span>Ah Yeah</span>
+          </div>
         </div>
       </div>
     </div>

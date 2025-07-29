@@ -265,26 +265,35 @@ const scratchPad = document.getElementById('scratch-pad');
 const scratchAudio = document.getElementById('scratch-audio');
 if (scratchPad && scratchAudio) {
   const ctx = scratchPad.getContext('2d');
-  let dragging = false, lastAngle = null;
+  let activePointerId = null;
+  let lastAngle = null;
 
-  // Scratch sample selector
-  const sampleSelect = document.getElementById('scratch-sample-select');
-  if (sampleSelect) {
-    sampleSelect.addEventListener('change', function(e) {
-      scratchAudio.src = e.target.value;
-      scratchAudio.currentTime = 0;
+  // Sample slider werkt altijd los
+  const sampleSlider = document.getElementById('scratch-sample-slider');
+  const scratchSamples = [
+    { src: 'assets/080232_scratch-sample-90085.mp3', name: 'Ahh' },
+    { src: 'assets/scratch03.mp3', name: 'Fresh' },
+    { src: 'assets/scratch10.mp3', name: 'Ah Yeah' }
+  ];
+  if (sampleSlider) {
+    sampleSlider.addEventListener('input', function(e) {
+      const idx = parseInt(e.target.value, 10);
+      if (scratchSamples[idx]) {
+        scratchAudio.src = scratchSamples[idx].src;
+        scratchAudio.currentTime = 0;
+      }
     });
   }
 
   function drawVinyl(angle = 0) {
     ctx.clearRect(0, 0, scratchPad.width, scratchPad.height);
     const img = new Image();
-    img.src = 'assets/vinyl.png'; // <-- hier zet je jouw vinyl afbeelding
+    img.src = 'assets/vinyl.png';
     img.onload = function() {
       ctx.save();
       ctx.translate(130, 130);
       ctx.rotate(angle);
-      ctx.drawImage(img, -130, -130, 260, 260); // past de afbeelding in het canvas
+      ctx.drawImage(img, -130, -130, 260, 260);
       ctx.restore();
     };
   }
@@ -307,40 +316,45 @@ if (scratchPad && scratchAudio) {
     scratchAudio.currentTime = 0;
   }
 
-  function start(e) {
-    dragging = true;
-    lastAngle = getAngle(
-      e.touches ? e.touches[0].clientX : e.clientX,
-      e.touches ? e.touches[0].clientY : e.clientY
-    );
-    scratchPad.style.cursor = "grabbing";
-  }
-  function move(e) {
-    if (!dragging) return;
-    const angle = getAngle(
-      e.touches ? e.touches[0].clientX : e.clientX,
-      e.touches ? e.touches[0].clientY : e.clientY
-    );
+  // Multitouch: gebruik pointer events
+  scratchPad.addEventListener('pointerdown', function(e) {
+    // Alleen starten als er nog geen andere pointer actief is op het canvas
+    if (activePointerId === null) {
+      activePointerId = e.pointerId;
+      lastAngle = getAngle(e.clientX, e.clientY);
+      scratchPad.setPointerCapture(e.pointerId);
+      scratchPad.style.cursor = "grabbing";
+      e.preventDefault();
+    }
+  });
+  scratchPad.addEventListener('pointermove', function(e) {
+    if (e.pointerId !== activePointerId) return;
+    const angle = getAngle(e.clientX, e.clientY);
     drawVinyl(angle);
     if (lastAngle !== null && Math.abs(angle - lastAngle) > 0.1) {
       playScratch();
     }
     lastAngle = angle;
-  }
-  function end() {
-    dragging = false;
+    e.preventDefault();
+  });
+  scratchPad.addEventListener('pointerup', function(e) {
+    if (e.pointerId !== activePointerId) return;
+    activePointerId = null;
     lastAngle = null;
     drawVinyl();
     scratchPad.style.cursor = "grab";
-    stopScratch(); // Stop het geluid direct bij loslaten
-  }
-
-  scratchPad.addEventListener('mousedown', start);
-  scratchPad.addEventListener('touchstart', start, {passive: false});
-  window.addEventListener('mousemove', move);
-  window.addEventListener('touchmove', move, {passive: false});
-  window.addEventListener('mouseup', end);
-  window.addEventListener('touchend', end);
+    stopScratch();
+    e.preventDefault();
+  });
+  scratchPad.addEventListener('pointercancel', function(e) {
+    if (e.pointerId !== activePointerId) return;
+    activePointerId = null;
+    lastAngle = null;
+    drawVinyl();
+    scratchPad.style.cursor = "grab";
+    stopScratch();
+    e.preventDefault();
+  });
 }
 // --- Scratchpad toggle button ---
 document.addEventListener('DOMContentLoaded', function() {
