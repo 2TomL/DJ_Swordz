@@ -507,3 +507,34 @@ function createTree3D(containerId, texturePath) {
 // Start 3D tree for both containers
 createTree3D('three-container', './assets/profile-pic2.jpg');
 createTree3D('about-three-container', 'assets/about-pic2bis2.jpg');
+
+// --- Lightning Flicker Animation ---
+function lightningFlicker(img, minDelay = 800, maxDelay = 3500) {
+  function flicker() {
+    // Randomly choose if lightning is visible (simulate flash)
+    const flashes = Math.floor(Math.random() * 2) + 1;
+    let count = 0;
+    function doFlash() {
+      img.style.opacity = (Math.random() > 0.5 ? 1 : 0.45);
+      img.style.filter = 'drop-shadow(0 0 80px #fff) drop-shadow(0 0 160px #fff)';
+      setTimeout(() => {
+        img.style.opacity = 0.08;
+        img.style.filter = '';
+        count++;
+        if (count < flashes) {
+          setTimeout(doFlash, Math.random() * 120 + 60);
+        } else {
+          setTimeout(flicker, Math.random() * (maxDelay - minDelay) + minDelay);
+        }
+      }, Math.random() * 80 + 40);
+    }
+    doFlash();
+  }
+  flicker();
+}
+window.addEventListener('DOMContentLoaded', function() {
+  const left = document.getElementById('lightning-left');
+  const right = document.getElementById('lightning-right');
+  if (left) lightningFlicker(left);
+  if (right) lightningFlicker(right);
+});

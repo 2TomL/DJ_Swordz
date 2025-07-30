@@ -1,3 +1,30 @@
+/* --- Lightning effect left and right --- */
+.lightning-effect {
+  position: fixed;
+  top: 95px; /* onder navbar */
+  bottom: 0;
+  width: 320px;
+  max-height: calc(100vh - 95px);
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0.1;
+  z-index: 1001;
+  transition: opacity 0.08s, filter 0.08s;
+  transform: scaleX(-1);
+}
+#lightning-left {
+  left: -40px;
+  top: 180px;
+}
+#lightning-right {
+  right: -40px;
+  transform: scaleX(1);
+}
+@media (max-width: 900px) {
+  .lightning-effect {
+    display: none;
+  }
+}
 /* Timeline pagination controls */
 #timeline-pagination {
   display: flex;
