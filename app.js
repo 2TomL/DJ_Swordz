@@ -108,10 +108,19 @@ if (canvas && ctx) {
   window.addEventListener("resize", setupCanvas);
 }
 function update(t) {
-    if (!mouseMoved) {
-        pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * window.innerWidth;
-        pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * window.innerHeight;
+    // Reduce animation complexity on mobile
+    if (window.innerWidth < 900) {
+        if (!mouseMoved) {
+            pointer.x = 0.5 * window.innerWidth;
+            pointer.y = 0.5 * window.innerHeight;
+        }
+    } else {
+        if (!mouseMoved) {
+            pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * window.innerWidth;
+            pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * window.innerHeight;
+        }
     }
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     trail.forEach((p, pIdx) => {
         const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
@@ -391,7 +400,7 @@ function createTree3D(containerId, texturePath) {
   camera.position.z = 3;
   const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(width, height);
-  renderer.setPixelRatio(window.devicePixelRatio * 0.7);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2) * 0.5);
   container.appendChild(renderer.domElement);
   const rows = 12;
   const cols = 10;
@@ -510,6 +519,11 @@ createTree3D('about-three-container', 'assets/about-pic2bis2.jpg');
 
 // --- Lightning Flicker Animation ---
 function lightningFlicker(img, minDelay = 800, maxDelay = 3500) {
+  // Skip animation on mobile/low-end devices
+  if (window.innerWidth < 900 || navigator.hardwareConcurrency < 4) {
+    return;
+  }
+  
   function flicker() {
     // Randomly choose if lightning is visible (simulate flash)
     const flashes = Math.floor(Math.random() * 2) + 1;

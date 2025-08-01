@@ -21,8 +21,8 @@
 </head>
 <body>
   <!-- Lightning effect left and right -->
-  <img id="lightning-left" class="lightning-effect" src="assets/Adobe Express - file.png" alt="Bliksem links" />
-  <img id="lightning-right" class="lightning-effect" src="assets/Adobe Express - file (1).png" alt="Bliksem rechts" />
+  <img id="lightning-left" class="lightning-effect" loading="lazy" src="assets/Adobe Express - file.png" alt="Bliksem links" />
+  <img id="lightning-right" class="lightning-effect" loading="lazy" src="assets/Adobe Express - file (1).png" alt="Bliksem rechts" />
   <nav id="desktop-nav">
     <div class="logo">
       <a href="#home">
@@ -39,7 +39,7 @@
           <img id="play-pause-icon" src="assets/enable-sound.png" alt="Play/Pause" />
         </button>
         <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1" title="Volume" />
-        <audio id="audio-player" src="assets/loop-file-electric-noise-drum-beat-117185.mp3"></audio>
+        <audio id="audio-player" preload="none" src="assets/loop-file-electric-noise-drum-beat-117185.mp3"></audio>
       </div>
     </div>
     <ul class="nav-links">
@@ -116,7 +116,7 @@
           <img id="turntable-arm-img" src="assets/turntable-arm.png" alt="Turntable Arm" />
         </div>
         <canvas id="scratch-pad" width="260" height="260"></canvas>
-        <audio id="scratch-audio" src="assets/080232_scratch-sample-90085.mp3"></audio>
+        <audio id="scratch-audio" preload="none" src="assets/080232_scratch-sample-90085.mp3"></audio>
         <div class="scratch-sample-slider-container">
           <input type="range" id="scratch-sample-slider" min="0" max="2" step="1" value="0" title="Select scratch sample">
           <div id="scratch-sample-labels" class="glitch-text">
