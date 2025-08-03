@@ -64,114 +64,82 @@ function toggleMenu() {
 }
 
 // --- Mouse Effect Canvas ---
-const canvas = document.getElementById('mouse-effect');
-const ctx = canvas ? canvas.getContext('2d') : null;
-let mouseMoved = false;
-const pointer = {
-    x: .5 * window.innerWidth,
-    y: .5 * window.innerHeight,
-}
-const params = {
-    pointsNumber: 25,
-    widthFactor: .3,
-    mouseThreshold: .6,
-    spring: .4,
-    friction: .5
-};
-const trail = new Array(params.pointsNumber);
-for (let i = 0; i < params.pointsNumber; i++) {
-    trail[i] = {
-        x: pointer.x,
-        y: pointer.y,
-        dx: 0,
-        dy: 0,
-    }
-}
-window.addEventListener("click", e => {
-    updateMousePosition(e.pageX, e.pageY);
-});
-window.addEventListener("mousemove", e => {
-    mouseMoved = true;
-    updateMousePosition(e.pageX, e.pageY);
-});
-window.addEventListener("touchmove", e => {
-    mouseMoved = true;
-    updateMousePosition(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
-});
-function updateMousePosition(eX, eY) {
-    pointer.x = eX;
-    pointer.y = eY;
-}
-if (canvas && ctx) {
-  setupCanvas();
-  update(0);
-  window.addEventListener("resize", setupCanvas);
-}
-function update(t) {
-    // Reduce animation complexity on mobile
-    if (window.innerWidth < 900) {
-        if (!mouseMoved) {
-            pointer.x = 0.5 * window.innerWidth;
-            pointer.y = 0.5 * window.innerHeight;
-        }
-    } else {
-        if (!mouseMoved) {
-            pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * window.innerWidth;
-            pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * window.innerHeight;
-        }
-    }
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    trail.forEach((p, pIdx) => {
-        const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
-        const spring = pIdx === 0 ? .4 * params.spring : params.spring;
-        p.dx += (prev.x - p.x) * spring;
-        p.dy += (prev.y - p.y) * spring;
-        p.dx *= params.friction;
-        p.dy *= params.friction;
-        p.x += p.dx;
-        p.y += p.dy;
-    });
-    ctx.strokeStyle = "white";
-    ctx.lineCap = "round";
-    ctx.beginPath();
-    ctx.moveTo(trail[0].x, trail[0].y);
-    for (let i = 1; i < trail.length - 1; i++) {
-        const xc = .5 * (trail[i].x + trail[i + 1].x);
-        const yc = .5 * (trail[i].y + trail[i + 1].y);
-        ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
-        ctx.lineWidth = params.widthFactor * (params.pointsNumber - i);
-        ctx.stroke();
-    }
-    ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y);
-    ctx.stroke();
-    window.requestAnimationFrame(update);
-}
-function setupCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-function toggleMouseEffect(show) {
-  if (canvas) {
-    canvas.style.display = show ? 'block' : 'none';
+if (window.innerWidth >= 900) {
+  const canvas = document.getElementById('mouse-effect');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let mouseMoved = false;
+  const pointer = {
+      x: .5 * window.innerWidth,
+      y: .5 * window.innerHeight,
+  };
+  const params = {
+      pointsNumber: 25,
+      widthFactor: .3,
+      mouseThreshold: .6,
+      spring: .4,
+      friction: .5
+  };
+  const trail = new Array(params.pointsNumber);
+  for (let i = 0; i < params.pointsNumber; i++) {
+      trail[i] = {
+          x: pointer.x,
+          y: pointer.y,
+          dx: 0,
+          dy: 0,
+      }
+  }
+  window.addEventListener("click", e => {
+      updateMousePosition(e.pageX, e.pageY);
+  });
+  window.addEventListener("mousemove", e => {
+      mouseMoved = true;
+      updateMousePosition(e.pageX, e.pageY);
+  });
+  function updateMousePosition(eX, eY) {
+      pointer.x = eX;
+      pointer.y = eY;
+  }
+  if (canvas && ctx) {
+    setupCanvas();
+    update(0);
+    window.addEventListener("resize", setupCanvas);
+  }
+  function update(t) {
+      if (!mouseMoved) {
+          pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * window.innerWidth;
+          pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * window.innerHeight;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      trail.forEach((p, pIdx) => {
+          const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+          const spring = pIdx === 0 ? .4 * params.spring : params.spring;
+          p.dx += (prev.x - p.x) * spring;
+          p.dy += (prev.y - p.y) * spring;
+          p.dx *= params.friction;
+          p.dy *= params.friction;
+          p.x += p.dx;
+          p.y += p.dy;
+      });
+      ctx.strokeStyle = "white";
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(trail[0].x, trail[0].y);
+      for (let i = 1; i < trail.length - 1; i++) {
+          const xc = .5 * (trail[i].x + trail[i + 1].x);
+          const yc = .5 * (trail[i].y + trail[i + 1].y);
+          ctx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+          ctx.lineWidth = params.widthFactor * (params.pointsNumber - i);
+          ctx.stroke();
+      }
+      ctx.lineTo(trail[trail.length - 1].x, trail[trail.length - 1].y);
+      ctx.stroke();
+      window.requestAnimationFrame(update);
+  }
+  function setupCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
   }
 }
-function checkSection() {
-  const hash = window.location.hash;
-  if (hash === '#home' || hash === '' || hash === '#') {
-    toggleMouseEffect(true);
-  } else {
-    toggleMouseEffect(false);
-  }
-}
-window.addEventListener('DOMContentLoaded', checkSection);
-window.addEventListener('hashchange', checkSection);
-window.addEventListener('mousemove', function(e) {
-  if (canvas && canvas.style.display !== 'none') {
-    mouseMoved = true;
-    updateMousePosition(e.pageX, e.pageY);
-  }
-});
 
 // --- ABOUT SECTION ANIMATION ---
 window.onload = function() {
@@ -194,16 +162,24 @@ function renderTimeline() {
         const start = page * perPage;
         const end = start + perPage;
         events.slice(start, end).forEach((ev, i) => {
+          // Detect mobile
+          const isMobile = window.innerWidth < 900;
+          let fbBtnStyle = "background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;";
+          if (isMobile && ev.facebook) {
+            fbBtnStyle += "display:block;z-index:2;";
+          } else {
+            fbBtnStyle += "display:none;";
+          }
           timeline.innerHTML += `
             <div class="timeline-event">
-              <div class="eventBubble" style="position:relative;">
+              <div class="eventBubble" style="position:relative;${isMobile && ev.facebook ? 'cursor:pointer;' : ''}" data-fb="${ev.facebook ? ev.facebook : ''}">
                 <div class="eventTime">
                   <div class="DayDigit">${ev.date.split('-')[2]}</div>
                   <div class="Day">${ev.day}<div class="MonthYear">${ev.date.split('-')[1]}/${ev.date.split('-')[0]}</div></div>
                 </div>
                 <div class="eventTitle">${ev.title}</div>
                 <div class="eventPlace">${ev.place}</div>
-                ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='background:none;border:none;padding:0;cursor:pointer;position:absolute;right:8px;bottom:8px;display:none;' onmouseenter='showFbInfo(this)' onmouseleave='hideFbInfo(this)'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button><div class='fb-info-balloon' style='display:none;position:absolute;right:40px;bottom:8px;background:#222;color:#fff;padding:6px 12px;border-radius:8px;font-size:10px;box-shadow:0 2px 8px #000;'>Event info</div>` : ''}
+                ${ev.facebook ? `<button class='fb-event-btn' onclick='window.open("${ev.facebook}", "_blank")' style='${fbBtnStyle}' onmouseenter='showFbInfo(this)' onmouseleave='hideFbInfo(this)'><img src='assets/facebook.png' alt='Facebook Event' style='width:28px;height:28px;vertical-align:middle;' /></button><div class='fb-info-balloon' style='display:none;position:absolute;right:40px;bottom:8px;background:#222;color:#fff;padding:6px 12px;border-radius:8px;font-size:10px;box-shadow:0 2px 8px #000;'>Event info</div>` : ''}
               </div>
               <svg class="timeline-dot-svg" height="20" width="20">
                 <circle cx="10" cy="10" r="5" />
@@ -211,19 +187,32 @@ function renderTimeline() {
             </div>
           `;
         });
-        // Add hover logic for eventBubble to show/hide fb-event-btn
+        // Add hover logic for eventBubble to show/hide fb-event-btn (desktop)
         setTimeout(() => {
+          const isMobile = window.innerWidth < 900;
           document.querySelectorAll('.eventBubble').forEach(bubble => {
-            bubble.addEventListener('mouseenter', function() {
-              const btn = bubble.querySelector('.fb-event-btn');
-              if (btn) btn.style.display = 'block';
-            });
-            bubble.addEventListener('mouseleave', function() {
-              const btn = bubble.querySelector('.fb-event-btn');
-              if (btn) btn.style.display = 'none';
-              const info = bubble.querySelector('.fb-info-balloon');
-              if (info) info.style.display = 'none';
-            });
+            const fb = bubble.getAttribute('data-fb');
+            // On mobile: clicking the bubble opens FB event if present
+            if (isMobile && fb) {
+              bubble.addEventListener('click', function(e) {
+                // Only trigger if not clicking the button itself
+                if (!e.target.classList.contains('fb-event-btn') && !e.target.closest('.fb-event-btn')) {
+                  window.open(fb, '_blank');
+                }
+              });
+            } else {
+              // Desktop: show/hide FB button on hover
+              bubble.addEventListener('mouseenter', function() {
+                const btn = bubble.querySelector('.fb-event-btn');
+                if (btn) btn.style.display = 'block';
+              });
+              bubble.addEventListener('mouseleave', function() {
+                const btn = bubble.querySelector('.fb-event-btn');
+                if (btn) btn.style.display = 'none';
+                const info = bubble.querySelector('.fb-info-balloon');
+                if (info) info.style.display = 'none';
+              });
+            }
           });
         }, 0);
         // Pagination controls
