@@ -1,3 +1,12 @@
+/* About section photo styling */
+.about-photo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  margin: 0 auto 18px auto;
+}
 /* --- Lightning effect left and right --- */
 .lightning-effect {
   position: fixed;
