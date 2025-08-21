@@ -1,3 +1,13 @@
+@media (max-width: 600px) {
+  .about-photo {
+    width: 70vw;
+    max-width: 320px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    margin-top: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+}
 /* About section photo styling */
 .about-photo {
   display: block;
@@ -34,7 +44,7 @@
     display: none;
   }
 }
-/* Timeline pagination controls */
+
 #timeline-pagination {
   display: flex;
   justify-content: center;
@@ -76,17 +86,6 @@
   transform-origin: 70px 30px;
   transform: rotate(-25deg);
   transition: transform 0.7s cubic-bezier(.7,1.7,.5,1);
-}
-/* --- Mouse Effect Canvas Styling --- */
-#mouse-effect {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1000;
-  display: block;
 }
 
 /* --- Zorg dat secties niet achter de navbar zitten en altijd minstens schermhoogte --- */
